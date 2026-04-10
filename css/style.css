@@ -71,17 +71,26 @@ canvas{display:block}
 .game-result.lose{color:var(--red)}
 
 /* ── BUILD PANEL ── */
-.build-panel{position:fixed;top:64px;right:0;z-index:150;width:200px;background:rgba(10,12,16,.92);border-left:1px solid var(--border);backdrop-filter:blur(16px);padding:16px;display:none;height:calc(100vh - 120px);overflow-y:auto}
+.build-panel{position:fixed;top:64px;right:0;z-index:150;width:220px;background:rgba(10,12,16,.95);border-left:1px solid var(--border);backdrop-filter:blur(16px);padding:14px;display:none;height:calc(100vh - 120px);overflow-y:auto}
 .build-panel.show{display:block}
-.build-panel h3{font-size:14px;font-weight:700;color:var(--gold-bright);margin-bottom:12px}
-.build-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-dim);transition:all .15s;margin-bottom:2px}
+.build-panel h3{font-size:14px;font-weight:700;color:var(--gold-bright);margin-bottom:10px}
+.build-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .15s;margin-bottom:2px}
 .build-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
 .build-item.sel{background:rgba(212,168,67,.1);color:var(--gold-bright);border:1px solid rgba(212,168,67,.2)}
 .ico{font-size:16px}
-.build-hint{font-size:11px;color:var(--text-muted);margin-top:12px;line-height:1.5}
+.build-hint{font-size:10px;color:var(--text-muted);margin-top:8px;line-height:1.4}
 .build-section{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:12px 0 4px;padding-top:8px;border-top:1px solid var(--border)}
 .build-modes{display:flex;gap:4px;margin-bottom:8px}
-.mode-btn{flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-family:'Outfit';font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.mode-btn{flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text-dim);font-family:'Outfit';font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
 .mode-btn:hover{background:rgba(255,255,255,.04);color:var(--text)}
 .mode-btn.active{background:rgba(212,168,67,.12);color:var(--gold-bright);border-color:rgba(212,168,67,.3)}
+.build-cats{display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap}
+.cat-btn{padding:4px 8px;border:1px solid var(--border);border-radius:5px;background:transparent;color:var(--text-dim);font-family:'Outfit';font-size:10px;font-weight:600;cursor:pointer;transition:all .15s}
+.cat-btn:hover{color:var(--text)}
+.cat-btn.active{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.3)}
+.build-items{max-height:calc(100vh - 400px);overflow-y:auto;margin-bottom:8px}
+.build-actions{display:flex;gap:4px;margin-top:8px}
+.build-act{flex:1;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text-dim);font-family:'Outfit';font-size:10px;font-weight:600;cursor:pointer;transition:all .15s}
+.build-act:hover{color:var(--gold-bright);border-color:var(--gold)}
+.build-count{font-size:10px;color:var(--text-muted);margin-top:6px;text-align:center}
 .build-status{font-size:12px;font-weight:600;color:var(--gold-bright);min-height:20px;margin-bottom:4px;opacity:0;transition:opacity .3s}

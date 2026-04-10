@@ -264,38 +264,38 @@ var PL_COLORS=['#4ade80','#60a5fa','#f0c94d','#ff6b6b','#c084fc','#22d3ee','#fb9
 var VARIANTS=[
 {id:'classic',name:'Lucky Reels',desc:'10 paylines, wilds, scatters, free spins!',feat:'10 LINES \u2022 WILDS \u2022 FREE SPINS',badge:'HOT',bc:'badge-hot',modeClass:'mode-classic',
 syms:[
-{k:'clover',p:[0,0,3,12,50],w:1,type:'wild',label:'WILD'},
-{k:'triple7',p:[0,0,0,0,0],w:2,type:'scatter',label:'SCATTER'},
-{k:'diamond',p:[0,0,2,8,30],w:5,type:'high'},
-{k:'seven',p:[0,0,1.5,6,20],w:6,type:'high'},
-{k:'crown',p:[0,0,1,4,12],w:8,type:'mid'},
-{k:'bar',p:[0,0,1,3,10],w:9,type:'mid'},
-{k:'cherry',p:[0,0,0.5,2,6],w:12,type:'low'},
-{k:'grapes',p:[0,0,0.5,1.5,5],w:12,type:'low'},
-{k:'strawberry',p:[0,0,0.4,1.5,4],w:13,type:'low'},
-{k:'watermelon',p:[0,0,0.3,1,3],w:14,type:'low'},
-{k:'lemon',p:[0,0,0.2,0.8,2],w:15,type:'low'}
-],rtp:'96.5%',vol:'Medium',mx:'100x',mode:'classic',lines:10,wildK:'clover',scatterK:'triple7',freeSpins:8},
+{k:'clover',p:[0,0,2,8,35],w:1,type:'wild',label:'WILD'},
+{k:'triple7',p:[0,0,0,0,0],w:1,type:'scatter',label:'SCATTER'},
+{k:'diamond',p:[0,0,1,4,18],w:4,type:'high'},
+{k:'seven',p:[0,0,0.8,3,12],w:6,type:'high'},
+{k:'crown',p:[0,0,0.5,2,8],w:10,type:'mid'},
+{k:'bar',p:[0,0,0.4,1.5,6],w:12,type:'mid'},
+{k:'cherry',p:[0,0,0.25,1,4],w:16,type:'low'},
+{k:'grapes',p:[0,0,0.2,0.8,3],w:18,type:'low'},
+{k:'strawberry',p:[0,0,0.15,0.6,2.5],w:20,type:'low'},
+{k:'watermelon',p:[0,0,0.1,0.5,2],w:22,type:'low'},
+{k:'lemon',p:[0,0,0.08,0.4,1.5],w:25,type:'low'}
+],rtp:'88.5%',vol:'Medium',mx:'70x',mode:'classic',lines:10,wildK:'clover',scatterK:'triple7',freeSpins:5},
 {id:'respin',name:'Diamond Rush',desc:'VIP stakes, respins, premium symbols only!',feat:'RESPIN \u2022 VIP \u2022 5 LINES',badge:'VIP',bc:'badge-vip',modeClass:'mode-respin',
 syms:[
-{k:'diamond',p:[0,0,3,15,80],w:1,type:'wild',label:'WILD'},
-{k:'triple7',p:[0,0,0,0,0],w:2,type:'scatter',label:'SCATTER'},
-{k:'crown',p:[0,0,2,8,40],w:6,type:'high'},
-{k:'bar',p:[0,0,1,4,15],w:10,type:'mid'},
-{k:'seven',p:[0,0,0.5,2,8],w:14,type:'low'}
-],rtp:'95.2%',vol:'High',mx:'80x',mode:'respin',lines:5,wildK:'diamond',scatterK:'triple7',freeSpins:5},
+{k:'diamond',p:[0,0,2,10,50],w:1,type:'wild',label:'WILD'},
+{k:'triple7',p:[0,0,0,0,0],w:1,type:'scatter',label:'SCATTER'},
+{k:'crown',p:[0,0,1,4,20],w:8,type:'high'},
+{k:'bar',p:[0,0,0.5,2,8],w:16,type:'mid'},
+{k:'seven',p:[0,0,0.25,1,4],w:24,type:'low'}
+],rtp:'87.2%',vol:'High',mx:'50x',mode:'respin',lines:5,wildK:'diamond',scatterK:'triple7',freeSpins:3},
 {id:'cascade',name:'Fruit Frenzy',desc:'Cascading wins with rising multiplier!',feat:'CASCADE \u2022 MULTIPLIER \u2022 10 LINES',badge:'NEW',bc:'badge-new',modeClass:'mode-cascade',
 syms:[
-{k:'clover',p:[0,0,1.5,5,20],w:1,type:'wild',label:'WILD'},
-{k:'cherry',p:[0,0,0.8,3,10],w:8,type:'high'},
-{k:'strawberry',p:[0,0,0.6,2.5,8],w:10,type:'mid'},
-{k:'watermelon',p:[0,0,0.5,2,6],w:11,type:'mid'},
-{k:'lemon',p:[0,0,0.4,1.5,4],w:13,type:'low'},
-{k:'grapes',p:[0,0,0.3,1,3],w:14,type:'low'}
-],rtp:'96.2%',vol:'Low',mx:'50x',mode:'cascade',lines:10,wildK:'clover',scatterK:null,freeSpins:0}
+{k:'clover',p:[0,0,1,3,12],w:1,type:'wild',label:'WILD'},
+{k:'cherry',p:[0,0,0.4,1.8,6],w:10,type:'high'},
+{k:'strawberry',p:[0,0,0.3,1.5,5],w:14,type:'mid'},
+{k:'watermelon',p:[0,0,0.2,1,3.5],w:16,type:'mid'},
+{k:'lemon',p:[0,0,0.15,0.7,2.5],w:20,type:'low'},
+{k:'grapes',p:[0,0,0.1,0.5,1.5],w:22,type:'low'}
+],rtp:'88.0%',vol:'Low',mx:'36x',mode:'cascade',lines:10,wildK:'clover',scatterK:null,freeSpins:0}
 ];
 
-var curV=null,RC=5,ROWS=3,SL=50,SH=154,BETS=[1000,5000,10000,25000,50000,100000,250000,500000,1000000];
+var curV=null,RC=5,ROWS=3,SL=50,SH=154,BETS=[1000,5000,10000,25000,50000,100000,250000,500000,1000000,2500000,5000000,10000000,25000000,50000000,100000000,250000000,500000000];
 var bal=100000000,bet=10000,bi=2,busy=false,spn=0,jp=2847500,rD=[],SYMS=[];
 var freeSpinsLeft=0,freeMulti=1,cascLvl=0,totalWin=0,grid=[];
 setInterval(function(){jp+=Math.floor(Math.random()*80)+10;document.getElementById('jpV').textContent=jp.toLocaleString()+' GP';},300);
@@ -322,6 +322,21 @@ function hlB(id){var b=document.getElementById(id);if(b){b.classList.add('hl');s
 function el(id){return document.getElementById(id);}
 function on(id,ev,fn){var e=el(id);if(e)e.addEventListener(ev,fn);}
 function initParts(){var e=el('parts');e.innerHTML='';for(var i=0;i<20;i++){var p=document.createElement('div');p.className='part '+(Math.random()>0.5?'gold':'green');var sz=2+Math.random()*4;p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;bottom:-10px;animation-duration:'+(4+Math.random()*8)+'s;animation-delay:'+Math.random()*10+'s';e.appendChild(p);}}
+
+/* PROVABLY FAIR STOP GENERATION */
+async function getStops(){
+var stops=[];
+try{
+var seed=fairHash+':'+spn+':'+Date.now();
+var enc=new TextEncoder().encode(seed);
+var hash=await crypto.subtle.digest('SHA-256',enc);
+var arr=new Uint8Array(hash);
+for(var c=0;c<RC;c++){stops.push(arr[c]%SL);}
+}catch(e){
+for(var c=0;c<RC;c++){stops.push(Math.floor(Math.random()*SL));}
+}
+return stops;
+}
 
 /* GET VISIBLE 5x3 GRID after reels stop */
 function getGrid(stops){
@@ -475,22 +490,35 @@ var sy=el('sy'+p[1]+'_'+((stops[parseInt(p[1])]+parseInt(p[0]))%SL));
 if(sy)sy.classList.add('wsym');}
 // Check scatters
 if(res.scatters.cnt>=3&&curV.freeSpins>0){
-freeSpinsLeft+=curV.freeSpins;freeMulti=2;
+freeSpinsLeft+=curV.freeSpins;if(freeSpinsLeft>10)freeSpinsLeft=10;freeMulti=1;
 el('freeTag').textContent='FREE SPINS: '+freeSpinsLeft;el('freeTag').style.display='block';
 sndFreeSpin();
-addChat('sys','','\u2728 '+res.scatters.cnt+' SCATTERS! '+curV.freeSpins+' Free Spins awarded!');
+addChat('sys','','\u2728 '+res.scatters.cnt+' SCATTERS! '+curV.freeSpins+' Free Spins awarded!'+(freeSpinsLeft>=10?' (MAX)':''));
 for(var p=0;p<res.scatters.positions.length;p++){
 var sp=res.scatters.positions[p];
 var sy=el('sy'+sp.c+'_'+((stops[sp.c]+sp.r)%SL));if(sy)sy.classList.add('wsym');}
 }
 if(win>0){
+curV._respinCount=0;
 bal+=win;uB();el('wD').textContent=fmt(win);hlB('wbx');
 var lineCount=res.results.length;
 el('msg').innerHTML=lineCount+' line'+(lineCount>1?'s':'')+' \u2014 <b>+'+fmt(win)+' GP</b>'+(multi>1?' (x'+multi+')':'');
 var tier=win>=bet*30?'mega':win>=bet*8?'bigw':'nice';
 triggerWinFX(tier,win);
 addChat('win','You','Won '+fmt(win)+' GP on '+lineCount+' lines!');
-}else if(res.scatters.cnt<3){el('msg').textContent='No luck this time';el('msg').className='msg dim';sndNoWin();}
+}else if(res.scatters.cnt<3){
+// Diamond Rush respin: 2-match on any line = free respin (max 3 respins per spin)
+if(curV.mode==='respin'&&(!curV._respinCount||curV._respinCount<3)){
+var has2match=false;
+var lines2=PAYLINES.slice(0,curV.lines);
+for(var li2=0;li2<lines2.length;li2++){
+var w2=checkPaylineWin(grid,lines2[li2],curV.wildK);
+if(w2.cnt===2&&w2.sym){has2match=true;break;}}
+if(has2match){curV._respinCount=(curV._respinCount||0)+1;
+el('msg').textContent='\u{1F504} 2-Match! Free Respin ('+curV._respinCount+'/3)';el('msg').className='msg';
+busy=false;setTimeout(doSpin,1200);return;}}
+curV._respinCount=0;
+el('msg').textContent='No luck this time';el('msg').className='msg dim';sndNoWin();}
 finishSpin(win>0||res.scatters.cnt>=3);
 }
 
@@ -502,7 +530,7 @@ if(res.totalWin>0){
 cascLvl++;
 el('multiBadge').textContent='x'+cascLvl;el('multiBadge').className='multi-badge show';
 sndCascade();
-var multi=Math.min(cascLvl,5);var win=Math.floor(res.totalWin*multi);
+var multi=Math.min(cascLvl,3);var win=Math.floor(res.totalWin*multi);
 totalWin+=win;bal+=win;uB();
 el('wD').textContent=fmt(totalWin);hlB('wbx');
 el('msg').textContent='Chain '+cascLvl+': +'+fmt(win)+' GP (x'+multi+')';
@@ -549,6 +577,7 @@ function finishSpin(hasWin){setTimeout(function(){
 busy=false;el('spB').disabled=false;el('mac').className='mac';el('ofl').className='ofl';
 document.querySelectorAll('.rl').forEach(function(r){r.className='rl';});
 if(freeSpinsLeft>0)setTimeout(doSpin,800);
+else{freeMulti=1;}
 },hasWin?3800:600);}
 function mkC(n){var c=el('cns');var ks=Object.keys(SIMG);
 for(var i=0;i<n;i++){sndCoin();var d=document.createElement('img');d.className='cn';d.src=SIMG[ks[Math.floor(Math.random()*ks.length)]];

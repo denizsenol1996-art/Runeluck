@@ -5,101 +5,10 @@
 
 RL.furniture = {
   build() {
-    RL.load(35, 'Building slot machines...');
-    const S = RL.scene;
-
-    // Slot rows - left wing
-    for(let r = 0; r < 3; r++) for(let i = 0; i < 5; i++) {
-      const s = this.makeSlot();
-      s.position.set(-20 + i*2.2, 0, 10 + r*4);
-      s.rotation.y = r%2 ? Math.PI : 0;
-      S.add(s);
-    }
-    // Slot rows - right wing
-    for(let r = 0; r < 3; r++) for(let i = 0; i < 5; i++) {
-      const s = this.makeSlot();
-      s.position.set(12 + i*2.2, 0, 10 + r*4);
-      s.rotation.y = r%2 ? Math.PI : 0;
-      S.add(s);
-    }
-
-    RL.load(45, 'Setting up roulette...');
-
-    // Roulette tables
-    for(let i = 0; i < 3; i++) {
-      const r = this.makeRoulette();
-      r.position.set(-8 + i*8, 0, -10);
-      S.add(r);
-      RL.roulettes.push(r);
-      RL.interactables.push(r);
-    }
-
-    RL.load(50, 'Card tables...');
-
-    // Blackjack tables
-    for(let i = 0; i < 4; i++) {
-      const b = this.makeBlackjack();
-      b.position.set(-12 + i*8, 0, -22);
-      S.add(b);
-      RL.interactables.push(b);
-    }
-
-    // Center dragon model on pedestal
-    const gltfLoader = new THREE.GLTFLoader();
-    
-    // Build pedestal first
-    const pedestal = new THREE.Group();
-    const pedBase = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 3, 1, 16), M.marbleLight);
-    pedBase.position.y = .5; pedBase.castShadow = true; pedestal.add(pedBase);
-    const pedTop = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.5, .3, 16), M.gold);
-    pedTop.position.y = 1.15; pedestal.add(pedTop);
-    const pedRing = new THREE.Mesh(new THREE.TorusGeometry(2.5, .08, 8, 24), M.gold);
-    pedRing.rotation.x = Math.PI/2; pedRing.position.y = .15; pedestal.add(pedRing);
-    S.add(pedestal);
-    
-    gltfLoader.load('models/chinese_dragon/scene.gltf', (gltf) => {
-      const dragon = gltf.scene;
-      const box = new THREE.Box3().setFromObject(dragon);
-      const size = box.getSize(new THREE.Vector3());
-      const center = box.getCenter(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 10 / maxDim;
-      dragon.scale.setScalar(scale);
-      
-      // Center on pedestal, sitting on top
-      dragon.position.set(
-        -center.x * scale, 
-        1.3 - box.min.y * scale,  // sit on pedestal top
-        -center.z * scale
-      );
-
-      dragon.traverse(c => {
-        if(c.isMesh) { c.castShadow = true; c.receiveShadow = true; }
-      });
-      RL._dragonModel = dragon;
-      S.add(dragon);
-    });
-
-    // Dragon accent lights
-    const dragonLight = new THREE.PointLight(0xd4a843, 2.5, 20);
-    dragonLight.position.set(0, 8, 0); S.add(dragonLight);
-    const dragonLight2 = new THREE.PointLight(0xf0c94d, 1.5, 15);
-    dragonLight2.position.set(0, 2, 3); S.add(dragonLight2);
-    const dragonLight3 = new THREE.PointLight(0xf0c94d, 1.0, 12);
-    dragonLight3.position.set(3, 2, -2); S.add(dragonLight3);
-
-    // Cashier booth
-    const booth = this.makeBooth();
-    booth.position.set(0, 0, 32);
-    booth.rotation.y = Math.PI;
-    S.add(booth);
-
-    // Velvet rope barriers (VIP area boundary)
-    for(let i = 0; i < 8; i++) {
-      const a = (i/8) * Math.PI * 2;
-      const a2 = ((i+1)/8) * Math.PI * 2;
-      this._makeRopePost(Math.cos(a)*28, Math.sin(a)*28, S);
-    }
+    RL.load(35, 'Furniture ready...');
+    // All furniture is now placed via Build Mode (B key)
+    // Maker functions below are used by the builder
+    RL.load(50, 'Build mode ready...');
   },
 
   _makeRopePost(x, z, scene) {

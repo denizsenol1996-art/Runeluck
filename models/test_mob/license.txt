@@ -1,0 +1,11 @@
+Model Information:
+* title:	Warp Portal Gate Terrain Warhammer 40k
+* source:	https://sketchfab.com/3d-models/warp-portal-gate-terrain-warhammer-40k-9d8b62512b0b4833863d5126ff22acfa
+* author:	chernyi.r (https://sketchfab.com/chernyi.r)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Warp Portal Gate Terrain Warhammer 40k" (https://sketchfab.com/3d-models/warp-portal-gate-terrain-warhammer-40k-9d8b62512b0b4833863d5126ff22acfa) by chernyi.r (https://sketchfab.com/chernyi.r) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
