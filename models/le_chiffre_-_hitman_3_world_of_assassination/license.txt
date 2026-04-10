@@ -1,0 +1,11 @@
+Model Information:
+* title:	Le Chiffre - Hitman 3 World of Assassination
+* source:	https://sketchfab.com/3d-models/le-chiffre-hitman-3-world-of-assassination-caf1088da0af456eba5c4d97956924eb
+* author:	mikastic (https://sketchfab.com/mikastic)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Le Chiffre - Hitman 3 World of Assassination" (https://sketchfab.com/3d-models/le-chiffre-hitman-3-world-of-assassination-caf1088da0af456eba5c4d97956924eb) by mikastic (https://sketchfab.com/mikastic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

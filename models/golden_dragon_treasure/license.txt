@@ -1,0 +1,11 @@
+Model Information:
+* title:	Golden Dragon Treasure
+* source:	https://sketchfab.com/3d-models/golden-dragon-treasure-79cf930925f54ce7b61af620def79914
+* author:	Brian Trepanier (https://sketchfab.com/CMBC)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Golden Dragon Treasure" (https://sketchfab.com/3d-models/golden-dragon-treasure-79cf930925f54ce7b61af620def79914) by Brian Trepanier (https://sketchfab.com/CMBC) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

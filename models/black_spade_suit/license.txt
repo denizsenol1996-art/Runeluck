@@ -1,0 +1,8 @@
+Model Information:
+* title:	Black Spade Suit
+* source:	https://sketchfab.com/3d-models/black-spade-suit-d024597f129a4e6d883c9a923f0e5df7
+* author:	saurabh.buradkar7 (https://sketchfab.com/saurabh.buradkar7)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RuneLuck - 3D Casino</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body>
+
+<!-- Loading -->
+<div class="loader" id="loader">
+  <h1><span class="lg">☘️ RUNE</span><span class="lw">LUCK</span></h1>
+  <div class="bar"><div class="fill" id="lbar"></div></div>
+  <div class="txt" id="ltxt">Building casino...</div>
+</div>
+
+<!-- HUD -->
+<div class="hud top-bar">
+  <div class="logo"><span class="lg">☘️ RUNE</span><span class="lw">LUCK</span></div>
+  <div class="bal"><span class="bc"></span><span class="bv" id="gpDisplay">100.0M</span><span style="font-size:9px;color:#444">GP</span></div>
+</div>
+
+<div class="hud bottom-bar">
+  <button class="gbtn active">🏛 LOBBY</button>
+  <button class="gbtn">🎰 SLOTS</button>
+  <button class="gbtn">🎡 ROULETTE</button>
+  <button class="gbtn">🃏 BLACKJACK</button>
+  <button class="gbtn">📈 CRASH</button>
+  <button class="gbtn" onclick="RL.build.toggle()" id="buildBtn">🔨 BUILD</button>
+  <button class="dbtn" onclick="window.open('https://discord.gg/runeluck')">💬 DISCORD</button>
+</div>
+
+<div class="hud controls">Left-click to walk · Click machine to play · Right-drag to orbit · Scroll to zoom · B = Build</div>
+
+<!-- Interaction prompt -->
+<div class="interact-prompt" id="interactPrompt">
+  <span id="interactText">Click to play</span>
+</div>
+
+<!-- Game UI overlay -->
+<div class="game-overlay" id="gameOverlay">
+  <div class="game-box">
+    <button class="game-close" onclick="RL.games.close()">✕</button>
+    <h2 id="gameTitle"></h2>
+    <div class="game-desc" id="gameDesc"></div>
+    <canvas id="gameCanvas" width="580" height="340"></canvas>
+    <div class="game-controls" id="gameControls"></div>
+    <div class="game-result" id="gameResult"></div>
+  </div>
+</div>
+
+<!-- Build panel -->
+<div class="build-panel" id="buildPanel">
+  <h3>🔨 BUILD MODE</h3>
+  <div class="build-item sel" data-type="slot" onclick="RL.build.select(this)"><span class="ico">🎰</span>Slot Machine</div>
+  <div class="build-item" data-type="roulette" onclick="RL.build.select(this)"><span class="ico">🎡</span>Roulette Table</div>
+  <div class="build-item" data-type="blackjack" onclick="RL.build.select(this)"><span class="ico">🃏</span>Blackjack Table</div>
+  <div class="build-item" data-type="npc" onclick="RL.build.select(this)"><span class="ico">⚔️</span>Knight NPC</div>
+  <div class="build-item" data-type="pillar" onclick="RL.build.select(this)"><span class="ico">🏛</span>Pillar</div>
+  <div class="build-item" data-type="banner" onclick="RL.build.select(this)"><span class="ico">🚩</span>Banner</div>
+  <div class="build-item" data-type="light" onclick="RL.build.select(this)"><span class="ico">💡</span>Gold Light</div>
+  <div class="build-item" data-type="booth" onclick="RL.build.select(this)"><span class="ico">💰</span>Cashier</div>
+  <div class="build-hint">Click floor to place · R = rotate · X = undo</div>
+</div>
+
+<!-- Load all modules -->
+<script src="js/main.js"></script>
+<script src="js/environment.js"></script>
+<script src="js/furniture.js"></script>
+<script src="js/npcs.js"></script>
+<script src="js/decorations.js"></script>
+<script src="js/build.js"></script>
+<script src="js/games.js"></script>
+<script src="js/slots-game.js"></script>
+<script>RL.init();</script>
+</body></html>
