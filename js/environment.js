@@ -85,46 +85,61 @@ RL.environment = {
 
     RL.load(25, 'Installing lights...');
 
-    // ── Lighting (warm, atmospheric) ──
-    S.add(new THREE.AmbientLight(0x111118, .6));
-    S.add(new THREE.HemisphereLight(0x443322, 0x111118, .7));
+    // ── Lighting (warm, atmospheric, well-lit casino) ──
+    S.add(new THREE.AmbientLight(0x222233, .8));
+    S.add(new THREE.HemisphereLight(0x554433, 0x111118, .9));
 
-    // Center warm spotlight
-    this.spotMain = new THREE.SpotLight(0xf0d478, 2, 60, Math.PI/3, .5);
-    this.spotMain.position.set(0, 16, 0);
+    // Center warm spotlight (dramatic, on dragon)
+    this.spotMain = new THREE.SpotLight(0xf0d478, 3, 40, Math.PI/5, .6);
+    this.spotMain.position.set(0, 14, 0);
+    this.spotMain.target.position.set(0, 0, 0);
     this.spotMain.castShadow = true;
-    this.spotMain.shadow.mapSize.set(512, 512);
+    this.spotMain.shadow.mapSize.set(1024, 1024);
     S.add(this.spotMain);
+    S.add(this.spotMain.target);
 
-    // Grid of warm point lights
+    // Grid of warm point lights (ceiling mounted, pointing down)
     for(let x = -30; x <= 30; x += 15) {
       for(let z = -30; z <= 30; z += 15) {
-        const pl = new THREE.PointLight(0xf0d478, .5, 18);
-        pl.position.set(x, 5, z);
+        const pl = new THREE.PointLight(0xf0d478, .6, 25);
+        pl.position.set(x, 12, z);
         S.add(pl);
+        // Small visible lamp fixture
+        const fix = new THREE.Mesh(new THREE.CylinderGeometry(.15, .25, .2, 8), M.gold);
+        fix.position.set(x, 13.5, z); S.add(fix);
       }
     }
 
-    // Wall accent lights (brighter, warm amber)
+    // Wall accent lights (sconce-style, at eye level)
     for(let i = 0; i < 16; i++) {
       const a = (i/16) * Math.PI * 2;
-      const wl = new THREE.PointLight(0xd4a843, .6, 18);
-      wl.position.set(Math.cos(a)*48, 7, Math.sin(a)*48);
+      const wl = new THREE.PointLight(0xd4a843, .8, 20);
+      const wx = Math.cos(a)*50, wz = Math.sin(a)*50;
+      wl.position.set(wx, 5, wz);
       S.add(wl);
+      // Visible sconce bracket
+      const sconce = new THREE.Mesh(new THREE.BoxGeometry(.3, .4, .15), M.gold);
+      sconce.position.set(wx, 5, wz);
+      sconce.lookAt(0, 5, 0);
+      S.add(sconce);
     }
 
-    // Extra uplights on walls for visibility
+    // Uplights along walls (ground level, pointing UP along wall)
     for(let i = 0; i < 8; i++) {
       const a = (i/8) * Math.PI * 2 + Math.PI/8;
-      const ul = new THREE.SpotLight(0xf0d478, .8, 20, Math.PI/4, .6);
-      ul.position.set(Math.cos(a)*46, 1, Math.sin(a)*46);
-      ul.target.position.set(Math.cos(a)*50, 10, Math.sin(a)*50);
+      const ux = Math.cos(a)*52, uz = Math.sin(a)*52;
+      const ul = new THREE.SpotLight(0xf0d478, 1.0, 18, Math.PI/6, .8);
+      ul.position.set(ux, 0.3, uz);
+      ul.target.position.set(ux, 12, uz);
       S.add(ul); S.add(ul.target);
+      // Small ground light fixture
+      const gf = new THREE.Mesh(new THREE.CylinderGeometry(.08, .12, .15, 6), M.gold);
+      gf.position.set(ux, .08, uz); S.add(gf);
     }
 
-    // Subtle purple accent under VIP area
-    const vipLight = new THREE.PointLight(0x6633aa, .3, 20);
-    vipLight.position.set(0, .5, 0); S.add(vipLight);
+    // Subtle purple accent for VIP area (above the floor)
+    const vipLight = new THREE.PointLight(0x6633aa, .4, 25);
+    vipLight.position.set(0, 3, 0); S.add(vipLight);
   },
 
   _makePillar(x, z) {

@@ -44,19 +44,34 @@ RL.furniture = {
       RL.interactables.push(b);
     }
 
-    // Center dragon model (replaces pillar)
+    // Center dragon model on pedestal
     const gltfLoader = new THREE.GLTFLoader();
+    
+    // Build pedestal first
+    const pedestal = new THREE.Group();
+    const pedBase = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 3, 1, 16), M.marbleLight);
+    pedBase.position.y = .5; pedBase.castShadow = true; pedestal.add(pedBase);
+    const pedTop = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.5, .3, 16), M.gold);
+    pedTop.position.y = 1.15; pedestal.add(pedTop);
+    const pedRing = new THREE.Mesh(new THREE.TorusGeometry(2.5, .08, 8, 24), M.gold);
+    pedRing.rotation.x = Math.PI/2; pedRing.position.y = .15; pedestal.add(pedRing);
+    S.add(pedestal);
+    
     gltfLoader.load('models/chinese_dragon/scene.gltf', (gltf) => {
       const dragon = gltf.scene;
       const box = new THREE.Box3().setFromObject(dragon);
       const size = box.getSize(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 12 / maxDim;
-      dragon.scale.setScalar(scale);
-
-      // Center horizontally, place on ground level
       const center = box.getCenter(new THREE.Vector3());
-      dragon.position.set(-center.x * scale, 3.2, -center.z * scale);
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const scale = 10 / maxDim;
+      dragon.scale.setScalar(scale);
+      
+      // Center on pedestal, sitting on top
+      dragon.position.set(
+        -center.x * scale, 
+        1.3 - box.min.y * scale,  // sit on pedestal top
+        -center.z * scale
+      );
 
       dragon.traverse(c => {
         if(c.isMesh) { c.castShadow = true; c.receiveShadow = true; }
@@ -65,11 +80,13 @@ RL.furniture = {
       S.add(dragon);
     });
 
-    // Dragon spotlight
-    const dragonLight = new THREE.PointLight(0xd4a843, 2, 25);
-    dragonLight.position.set(0, 10, 0); S.add(dragonLight);
-    const dragonLight2 = new THREE.PointLight(0xf0c94d, 1.2, 18);
-    dragonLight2.position.set(0, 3, 0); S.add(dragonLight2);
+    // Dragon accent lights
+    const dragonLight = new THREE.PointLight(0xd4a843, 2.5, 20);
+    dragonLight.position.set(0, 8, 0); S.add(dragonLight);
+    const dragonLight2 = new THREE.PointLight(0xf0c94d, 1.5, 15);
+    dragonLight2.position.set(0, 2, 3); S.add(dragonLight2);
+    const dragonLight3 = new THREE.PointLight(0xf0c94d, 1.0, 12);
+    dragonLight3.position.set(3, 2, -2); S.add(dragonLight3);
 
     // Cashier booth
     const booth = this.makeBooth();
