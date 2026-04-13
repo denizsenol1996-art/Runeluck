@@ -4,8 +4,8 @@
 // ═══════════════════════════════════════
 
 RL.decorations = {
-  pGeo: null, pCount: 300,
-  gGeo: null, gCount: 100,
+  pGeo: null, pCount: 120,
+  gGeo: null, gCount: 40,
 
   build() {
     RL.load(65, 'Decorating...');
@@ -15,25 +15,23 @@ RL.decorations = {
 
     // (standing banners removed — use build mode to place decorations)
 
-    // ── VIDEO SCREENS on walls ──
-    // Put mp4 files in media/ folder next to index.html
-    const videos = [
-      'media/runeluckdiscord2.mp4',
-      'media/Timeline_3.mp4',
-      'media/Poker_Vid_2_pt_2.mp4',
-      'media/new runeluck outro.mp4',
-      'media/Finished_Roulette_-_Chest.mp4',
-      'media/Leprechaun Conveyor Belt.mp4',
+    // ── IMAGE SCREENS on walls ──
+    const images = [
+      'media/army.png',
+      'media/dex1.png',
+      'media/Grue.png',
+      'media/image.png',
+      'media/Karl%20l0l.png',
+      'media/Onlynows.png',
+      'media/alt_stamp.png',
     ];
     this._videoTextures = [];
 
-    // Place video screens BETWEEN pillars (16 pillars at radius 48)
-    // Pillars are at angles: i/16 * PI*2 — so we offset to sit between them
     const pillarStep = Math.PI * 2 / 16;
-    const screenSlots = [1, 4, 6, 9, 11, 14]; // which gap between pillars
-    for(let i = 0; i < videos.length; i++) {
-      const a = (screenSlots[i] + 0.5) * pillarStep; // halfway between two pillars
-      this._makeVideoScreen(S, videos[i], a, 7, 46);
+    const screenSlots = [1, 3, 5, 7, 9, 11, 13];
+    for(let i = 0; i < images.length; i++) {
+      const a = (screenSlots[i] + 0.5) * pillarStep;
+      this._makeImageScreen(S, images[i], a, 7, 46);
     }
 
     // ── Floor pattern — diamond shapes ──
@@ -90,47 +88,72 @@ RL.decorations = {
 
     RL.load(80, 'Labels...');
 
-    // ── Area labels ──
-    this._label('SLOTS', -15, 4, 14, '#d4a843');
-    this._label('SLOTS', 18, 4, 14, '#d4a843');
-    this._label('ROULETTE', 0, 3.5, -9, '#22c55e');
-    this._label('BLACKJACK', 0, 3.5, -20, '#a855f7');
-    this._label('CASHIER', 0, 3, 30, '#d4a843');
+    // ── Area labels (stored for later repositioning) ──
+    this._labels = {};
+    this._labels.slotsL = this._label('SLOTS', -15, 4, 14, '#d4a843');
+    this._labels.slotsR = this._label('SLOTS', 18, 4, 14, '#d4a843');
+    this._labels.roulette = this._label('ROULETTE', 0, 3.5, -9, '#22c55e');
+    this._labels.blackjack = this._label('BLACKJACK', 0, 3.5, -20, '#a855f7');
+    this._labels.cashier = this._label('CASHIER', 0, 3, 30, '#d4a843');
   },
 
+  moveLabel(key, x, y, z){
+    var l = this._labels && this._labels[key];
+    if(l) l.position.set(x, y, z);
+  },
+
+  _decoFrame: 0,
   animate(t) {
-    // Warm particles drift up
-    const pp = this.pGeo.attributes.position.array;
-    for(let i = 0; i < this.pCount; i++) {
-      pp[i*3+1] += .001;
-      if(pp[i*3+1] > 14) {
-        pp[i*3+1] = 0;
-        pp[i*3] = (Math.random()-.5) * 80;
-        pp[i*3+2] = (Math.random()-.5) * 80;
+    // Throttle particle + video updates to every 2nd frame
+    this._decoFrame = (this._decoFrame+1) & 1;
+    if(this._decoFrame === 0){
+      const pp = this.pGeo.attributes.position.array;
+      for(let i = 0; i < this.pCount; i++) {
+        pp[i*3+1] += .002;
+        if(pp[i*3+1] > 14) {
+          pp[i*3+1] = 0;
+          pp[i*3] = (Math.random()-.5) * 80;
+          pp[i*3+2] = (Math.random()-.5) * 80;
+        }
+      }
+      this.pGeo.attributes.position.needsUpdate = true;
+
+      const gp = this.gGeo.attributes.position.array;
+      for(let i = 0; i < this.gCount; i++) {
+        const ox = gp[i*3], oz = gp[i*3+2];
+        const a = Math.atan2(oz, ox) + .01;
+        const r = Math.hypot(ox, oz);
+        gp[i*3] = Math.cos(a) * r;
+        gp[i*3+2] = Math.sin(a) * r;
+        gp[i*3+1] += .004;
+        if(gp[i*3+1] > 14) gp[i*3+1] = 8;
+      }
+      this.gGeo.attributes.position.needsUpdate = true;
+
+      // Lazy-start videos only when player is within range
+      if(this._videoTextures) {
+        var px = RL.player ? RL.player.position.x : 0;
+        var pz = RL.player ? RL.player.position.z : 0;
+        this._videoTextures.forEach(vt => {
+          var d2 = (vt.x - px)*(vt.x - px) + (vt.z - pz)*(vt.z - pz);
+          if(d2 > 625){ // >25 units away
+            if(vt.video.src && !vt.video.paused) vt.video.pause();
+          } else {
+            // Attach src + start playing on first close approach
+            if(!vt.video.src){ vt.video.src = vt.video._src; }
+            if(vt.video.paused) vt.video.play().catch(function(){});
+            if(vt.video.readyState >= vt.video.HAVE_CURRENT_DATA) {
+              vt.texture.needsUpdate = true;
+            }
+          }
+        });
       }
     }
-    this.pGeo.attributes.position.needsUpdate = true;
 
-    // Gold sparkles orbit
-    const gp = this.gGeo.attributes.position.array;
-    for(let i = 0; i < this.gCount; i++) {
-      const ox = gp[i*3], oz = gp[i*3+2];
-      const a = Math.atan2(oz, ox) + .005;
-      const r = Math.hypot(ox, oz);
-      gp[i*3] = Math.cos(a) * r;
-      gp[i*3+2] = Math.sin(a) * r;
-      gp[i*3+1] += .002;
-      if(gp[i*3+1] > 14) gp[i*3+1] = 8;
-    }
-    this.gGeo.attributes.position.needsUpdate = true;
-
-    // Update video textures
-    if(this._videoTextures) {
-      this._videoTextures.forEach(vt => {
-        if(vt.video.readyState >= vt.video.HAVE_CURRENT_DATA) {
-          vt.texture.needsUpdate = true;
-        }
-      });
+    // Chandelier slow rotation + gentle sway
+    if(RL._chandelier) {
+      RL._chandelier.rotation.y = t * 0.08;
+      RL._chandelier.position.y = 13 + Math.sin(t * 0.3) * 0.05;
     }
   },
 
@@ -140,22 +163,23 @@ RL.decorations = {
 
     // Create video element
     const video = document.createElement('video');
-    video.src = src;
+    // Lazy video: DON'T set src until player walks close.
+    // The animate loop will set .src and call play() when player enters range.
+    video._src = src;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
+    video.preload = 'none';
     video.crossOrigin = 'anonymous';
-    video.play().catch(() => {
-      // Autoplay blocked — play on first user click
-      const handler = () => { video.play(); document.removeEventListener('click', handler); };
-      document.addEventListener('click', handler);
-    });
 
     const videoTex = new THREE.VideoTexture(video);
     videoTex.minFilter = THREE.LinearFilter;
     videoTex.magFilter = THREE.LinearFilter;
 
-    this._videoTextures.push({ video, texture: videoTex });
+    // Store world position so we can pause the video when the player is far
+    var worldX = Math.cos(angle) * radius;
+    var worldZ = Math.sin(angle) * radius;
+    this._videoTextures.push({ video, texture: videoTex, x: worldX, z: worldZ });
 
     // Screen (16:9 aspect)
     const screenW = 6, screenH = 3.375;
@@ -206,20 +230,62 @@ RL.decorations = {
     glow.position.set(0, 0, -0.5);
     screen.add(glow);
 
-    // "RUNELUCK" label under screen
-    const labelCanvas = document.createElement('canvas');
-    labelCanvas.width = 256; labelCanvas.height = 32;
-    const lx = labelCanvas.getContext('2d');
-    lx.fillStyle = '#d4a843'; lx.font = 'bold 14px sans-serif'; lx.textAlign = 'center';
-    lx.fillText('◆  RUNELUCK  ◆', 128, 22);
-    const label = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.5, .4),
-      new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(labelCanvas), transparent: true })
-    );
-    label.position.set(0, -screenH/2 - .5, 0.01);
-    screen.add(label);
-
     // Position on wall, facing inward
+    screen.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius);
+    screen.lookAt(0, height, 0);
+
+    scene.add(screen);
+  },
+
+  // ── IMAGE SCREEN on wall ──
+  _makeImageScreen(scene, src, angle, height, radius) {
+    const loader = new THREE.TextureLoader();
+    const tex = loader.load(src);
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.anisotropy = 4;
+
+    const screenW = 6, screenH = 3.375;
+    const screen = new THREE.Mesh(
+      new THREE.PlaneGeometry(screenW, screenH),
+      new THREE.MeshBasicMaterial({ map: tex })
+    );
+
+    const frameThick = .12;
+    const frameParts = [
+      { w: screenW + frameThick*2, h: frameThick, x: 0, y: screenH/2 + frameThick/2 },
+      { w: screenW + frameThick*2, h: frameThick, x: 0, y: -screenH/2 - frameThick/2 },
+      { w: frameThick, h: screenH, x: -screenW/2 - frameThick/2, y: 0 },
+      { w: frameThick, h: screenH, x: screenW/2 + frameThick/2, y: 0 },
+    ];
+    frameParts.forEach(fp => {
+      const bar = new THREE.Mesh(
+        new THREE.PlaneGeometry(fp.w, fp.h),
+        new THREE.MeshBasicMaterial({ color: 0xd4a843 })
+      );
+      bar.position.set(fp.x, fp.y, 0.01);
+      screen.add(bar);
+    });
+
+    const corners = [
+      [-screenW/2 - frameThick/2, screenH/2 + frameThick/2],
+      [screenW/2 + frameThick/2, screenH/2 + frameThick/2],
+      [-screenW/2 - frameThick/2, -screenH/2 - frameThick/2],
+      [screenW/2 + frameThick/2, -screenH/2 - frameThick/2],
+    ];
+    corners.forEach(([cx, cy]) => {
+      const dot = new THREE.Mesh(
+        new THREE.PlaneGeometry(.2, .2),
+        new THREE.MeshBasicMaterial({ color: 0xf0c94d })
+      );
+      dot.position.set(cx, cy, 0.02);
+      screen.add(dot);
+    });
+
+    const glow = new THREE.PointLight(0xd4a843, .3, 8);
+    glow.position.set(0, 0, -0.5);
+    screen.add(glow);
+
     screen.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius);
     screen.lookAt(0, height, 0);
 
@@ -290,5 +356,6 @@ RL.decorations = {
     sprite.scale.set(4, .6, 1);
     sprite.position.set(x, y, z);
     RL.scene.add(sprite);
+    return sprite;
   }
 };

@@ -85,61 +85,43 @@ RL.environment = {
 
     RL.load(25, 'Installing lights...');
 
-    // ── Lighting (warm, atmospheric, well-lit casino) ──
-    S.add(new THREE.AmbientLight(0x222233, .8));
-    S.add(new THREE.HemisphereLight(0x554433, 0x111118, .9));
+    // ── Lighting (moody, atmospheric) ──
+    S.add(new THREE.AmbientLight(0x2a2a38, .85));
+    S.add(new THREE.HemisphereLight(0x5a4a2a, 0x1a1620, .85));
 
-    // Center warm spotlight (dramatic, on dragon)
-    this.spotMain = new THREE.SpotLight(0xf0d478, 3, 40, Math.PI/5, .6);
+    // Center warm spotlight (dramatic) — shadow disabled for perf
+    this.spotMain = new THREE.SpotLight(0xf0d478, 1.8, 40, Math.PI/5, .6);
     this.spotMain.position.set(0, 14, 0);
     this.spotMain.target.position.set(0, 0, 0);
-    this.spotMain.castShadow = true;
-    this.spotMain.shadow.mapSize.set(1024, 1024);
+    this.spotMain.castShadow = false;
     S.add(this.spotMain);
     S.add(this.spotMain.target);
 
-    // Grid of warm point lights (ceiling mounted, pointing down)
-    for(let x = -30; x <= 30; x += 15) {
-      for(let z = -30; z <= 30; z += 15) {
-        const pl = new THREE.PointLight(0xf0d478, .6, 25);
-        pl.position.set(x, 12, z);
-        S.add(pl);
-        // Small visible lamp fixture
-        const fix = new THREE.Mesh(new THREE.CylinderGeometry(.15, .25, .2, 8), M.gold);
-        fix.position.set(x, 13.5, z); S.add(fix);
-      }
-    }
+    // Reduced ceiling lights — 4 instead of 49
+    [[-22,-22],[22,-22],[-22,22],[22,22]].forEach(function(p){
+      const pl = new THREE.PointLight(0xf0d478, 0.55, 50);
+      pl.position.set(p[0], 12, p[1]);
+      S.add(pl);
+      const fix = new THREE.Mesh(new THREE.CylinderGeometry(.15, .25, .2, 8), M.gold);
+      fix.position.set(p[0], 13.5, p[1]); S.add(fix);
+    });
 
-    // Wall accent lights (sconce-style, at eye level)
-    for(let i = 0; i < 16; i++) {
-      const a = (i/16) * Math.PI * 2;
-      const wl = new THREE.PointLight(0xd4a843, .8, 20);
+    // Reduced wall accent lights — 6 instead of 16
+    for(let i = 0; i < 6; i++) {
+      const a = (i/6) * Math.PI * 2;
+      const wl = new THREE.PointLight(0xd4a843, 0.45, 22);
       const wx = Math.cos(a)*50, wz = Math.sin(a)*50;
       wl.position.set(wx, 5, wz);
       S.add(wl);
-      // Visible sconce bracket
       const sconce = new THREE.Mesh(new THREE.BoxGeometry(.3, .4, .15), M.gold);
       sconce.position.set(wx, 5, wz);
       sconce.lookAt(0, 5, 0);
       S.add(sconce);
     }
 
-    // Uplights along walls (ground level, pointing UP along wall)
-    for(let i = 0; i < 8; i++) {
-      const a = (i/8) * Math.PI * 2 + Math.PI/8;
-      const ux = Math.cos(a)*52, uz = Math.sin(a)*52;
-      const ul = new THREE.SpotLight(0xf0d478, 1.0, 18, Math.PI/6, .8);
-      ul.position.set(ux, 0.3, uz);
-      ul.target.position.set(ux, 12, uz);
-      S.add(ul); S.add(ul.target);
-      // Small ground light fixture
-      const gf = new THREE.Mesh(new THREE.CylinderGeometry(.08, .12, .15, 6), M.gold);
-      gf.position.set(ux, .08, uz); S.add(gf);
-    }
+    // Ground uplight fixtures removed — were looking like orbs on the floor
 
-    // Subtle purple accent for VIP area (above the floor)
-    const vipLight = new THREE.PointLight(0x6633aa, .4, 25);
-    vipLight.position.set(0, 3, 0); S.add(vipLight);
+    // (purple VIP light removed — was creating a visible colored spot on the floor)
   },
 
   _makePillar(x, z) {
